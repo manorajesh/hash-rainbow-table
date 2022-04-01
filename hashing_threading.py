@@ -11,11 +11,14 @@ def lowercase_word():
     return word
 
 def hash_word_to_file():
+    global counter
     file1 = open("rainbowtabble.txt", "a")
     while True:
         c = lowercase_word()
         file1.write("%s\t\t>\t%s\n" %(c, sha1(c.encode('ASCII')).hexdigest()))
+        counter += 1
 
+counter = 0
 thread1 = threading.Thread(target=hash_word_to_file)
 thread1.start()
 thread2 = threading.Thread(target=hash_word_to_file)
@@ -24,3 +27,4 @@ thread3 = threading.Thread(target=hash_word_to_file)
 thread3.start()
 thread4 = threading.Thread(target=hash_word_to_file)
 thread4.start()
+print(counter)
